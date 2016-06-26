@@ -1,5 +1,6 @@
 #!/usr/bin/expect -f
-spawn ssh-add ./tmp.key
+spawn ssh-add <(echo "-----BEGIN RSA PRIVATE KEY----- $GITHUB_DEPLOY_SSH_KEY -----END RSA PRIVATE KEY-----")
+#spawn ssh-add ./tmp.key
 expect "Enter passphrase for ./tmp.key:"
 send "\n";
 interact
