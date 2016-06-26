@@ -14,6 +14,8 @@ install:
   # make ssh directory
   - mkdir -p $HOME/.ssh
 
+  - ssh-add --help
+
   # add ssh key stored in GITHUB_DEPLOY_SSH_KEY variable to the agent store
   - ssh-add <(echo "$GITHUB_DEPLOY_SSH_KEY")
 
