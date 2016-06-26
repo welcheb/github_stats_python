@@ -17,16 +17,6 @@ before_install:
   # make ssh directory
   - mkdir -p $HOME/.ssh
 
-  # add ssh key stored in GITHUB_DEPLOY_SSH_KEY variable to the agent store
-  #- ssh-add <(echo "$GITHUB_DEPLOY_SSH_KEY")
-  - echo "$GITHUB_DEPLOY_SSH_KEY" > ./tmp.key
-  - which expect
-  - which spawn
-  - spawn ssh-add ./tmp.key
-  - expect "Enter passphrase for ./tmp.key:"
-  - send "\n";
-  - interact
-
   # install python requests module
   - "pip install requests"
 
@@ -35,6 +25,10 @@ script:
 
   # run python script
   - python github_stats.py
+
+  # add ssh key stored in GITHUB_DEPLOY_SSH_KEY variable to the agent store
+  - echo "$GITHUB_DEPLOY_SSH_KEY" > ./tmp.key
+  - bash spawn-ssh-add.sh
 
   # clone the github_stats_json repo from github.com
   - git clone git@github.com:welcheb/github_stats_json.git
