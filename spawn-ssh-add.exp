@@ -3,4 +3,4 @@ spawn ssh-add ./tmp.key
 expect "Enter passphrase for ./tmp.key:"
 send "\n";
 interact
-ssh-add -L
+spawn ssh-add -L
