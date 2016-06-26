@@ -20,7 +20,8 @@ install:
   - chmod 600 ./tmp.key
   - ls -l ./tmp.key
   - cat tmp.key | wc -l
-  - ssh-add -k ./tmp.key </dev/null &>/dev/null
+  #- ssh-add -k ./tmp.key </dev/null &>/dev/null
+  - ssh-add -k ./tmp.key
 
   # install python requests module
   - "pip install requests"
