@@ -20,6 +20,8 @@ before_install:
   # add ssh key stored in GITHUB_DEPLOY_SSH_KEY variable to the agent store
   #- ssh-add <(echo "$GITHUB_DEPLOY_SSH_KEY")
   - echo "$GITHUB_DEPLOY_SSH_KEY" > ./tmp.key
+  - which expect
+  - which spawn
   - spawn ssh-add ./tmp.key
   - expect "Enter passphrase for ./tmp.key:"
   - send "\n";
