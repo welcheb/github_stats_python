@@ -9,7 +9,7 @@ before_install:
   #- 'which ssh-agent || ( sudo apt-get -qq update -y && sudo apt-get install openssh-client -y && which ssh-agent)'
 
   # Install expect if not already installed
-  #- 'which expect || ( sudo apt-get -qq update -y && sudo apt-get install expect -y && which expect)'
+  - 'which expect || ( sudo apt-get -qq update -y && sudo apt-get install expect -y && which expect)'
 
   # Install keychain if not already installed
   - 'which keychain || ( sudo apt-get -qq update -y && sudo apt-get install keychain -y && which keychain)'
