@@ -43,8 +43,8 @@ script:
   - echo "ssh-rsa $GITHUB_DEPLOY_SSH_KEY_PUB $GITHUB_EMAIL" > ./tmp.pub
   - cat ./tmp
   - cat ./tmp.pub
-  #- keychain ./tmp
-  - expect spawn-keychain.exp
+  - keychain ./tmp
+  #- expect spawn-keychain.exp
   - source $HOME/.keychain/$HOSTNAME-sh
 
   # clone the github_stats_json repo from github.com
