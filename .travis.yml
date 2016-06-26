@@ -30,6 +30,7 @@ script:
   - echo "$GITHUB_DEPLOY_SSH_KEY" > ./tmp.key
   - chmod 600 ./tmp.key
   - expect spawn-ssh-add.exp
+  - ssh-add -L
 
   # clone the github_stats_json repo from github.com
   - git clone git@github.com:welcheb/github_stats_json.git
