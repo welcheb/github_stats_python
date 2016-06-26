@@ -34,12 +34,13 @@ script:
   - python github_stats.py
 
   # add ssh key stored in GITHUB_DEPLOY_SSH_KEY variable to the agent store
-  - echo -e "-----BEGIN RSA PRIVATE KEY----- $GITHUB_DEPLOY_SSH_KEY_PRIV -----END RSA PRIVATE KEY----- " > ./tmp
+  - echo "-----BEGIN RSA PRIVATE KEY----- $GITHUB_DEPLOY_SSH_KEY_PRIV -----END RSA PRIVATE KEY-----" > ./tmp
   #- sed -r -e 's/\s\+/\n/g' ./tmp > ./tmp
+  - cat ./tmp
   - perl -pe 's/\s+/\n/g' ./tmp > ./tmp
+  - cat ./tmp
   - chmod 600 ./tmp
   - echo "ssh-rsa $GITHUB_DEPLOY_SSH_KEY_PUB $GITHUB_EMAIL" > ./tmp.pub
-  - cat ./tmp
   - cat ./tmp.pub
   #- keychain ./tmp
   - expect spawn-keychain.exp
