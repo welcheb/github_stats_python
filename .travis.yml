@@ -6,10 +6,10 @@ python:
 before_install:
   
   # Install ssh-agent if not already installed
-  - 'which ssh-agent || ( sudo apt-get update -y && apt-get install openssh-client -y )'
+  - 'which ssh-agent || ( sudo apt-get update -y && sudo apt-get install openssh-client -y )'
 
   # Install expect if not already installed
-  - 'which expect || ( sudo apt-get update -y && apt-get install expect -y )'
+  - 'which expect || ( sudo apt-get update -y && sudo apt-get install expect -y )'
 
   # Run ssh-agent (inside the build environment)
   - eval $(ssh-agent -s)
