@@ -18,7 +18,7 @@ install:
   #- ssh-add <(echo "$GITHUB_DEPLOY_SSH_KEY")
   - echo "$GITHUB_DEPLOY_SSH_KEY" > ./tmp.key
   - ls -l ./tmp.key
-  - cat ./tmp.key
+  - cat tmp.key | wc -l
   - ssh-add -k ./tmp.key </dev/null &>/dev/null
 
   # install python requests module
