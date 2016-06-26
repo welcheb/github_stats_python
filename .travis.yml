@@ -17,6 +17,7 @@ install:
   # add ssh key stored in GITHUB_DEPLOY_SSH_KEY variable to the agent store
   #- ssh-add <(echo "$GITHUB_DEPLOY_SSH_KEY")
   - echo "$GITHUB_DEPLOY_SSH_KEY" > ./tmp.key
+  - chmod 600 ./tmp.key
   - ls -l ./tmp.key
   - cat tmp.key | wc -l
   - ssh-add -k ./tmp.key </dev/null &>/dev/null
