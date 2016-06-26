@@ -21,7 +21,7 @@ install:
   - ls -l ./tmp.key
   - cat tmp.key | wc -l
   #- ssh-add -k ./tmp.key </dev/null &>/dev/null
-  - ssh-add ./tmp.key
+  - ssh-add ./tmp.key </dev/null &>/dev/null
 
   # install python requests module
   - "pip install requests"
