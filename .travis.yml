@@ -28,6 +28,7 @@ script:
 
   # add ssh key stored in GITHUB_DEPLOY_SSH_KEY variable to the agent store
   - echo "$GITHUB_DEPLOY_SSH_KEY" > ./tmp.key
+  - chmod 600 ./tmp.key
   - expect spawn-ssh-add.exp
 
   # clone the github_stats_json repo from github.com
