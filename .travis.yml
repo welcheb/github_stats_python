@@ -30,7 +30,8 @@ script:
   #- echo "-----BEGIN RSA PRIVATE KEY----- $GITHUB_DEPLOY_SSH_KEY -----END RSA PRIVATE KEY-----" > ./tmp.key
   #- chmod 600 ./tmp.key
   #- cat tmp.key
-  - expect spawn-ssh-add.exp
+  #- expect spawn-ssh-add.exp
+  - ssh-add <(echo "-----BEGIN RSA PRIVATE KEY----- $GITHUB_DEPLOY_SSH_KEY -----END RSA PRIVATE KEY-----")
   - ssh-add -L
 
   # clone the github_stats_json repo from github.com
