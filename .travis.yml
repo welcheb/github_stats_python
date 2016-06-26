@@ -6,10 +6,13 @@ python:
 before_install:
   
   # Install ssh-agent if not already installed
-  - 'which ssh-agent || ( sudo apt-get -qq update -y && sudo apt-get install openssh-client -y )'
+  - 'which ssh-agent || ( sudo apt-get -qq update -y && sudo apt-get install openssh-client -y && which ssh-agent)'
 
   # Install expect if not already installed
-  - 'which expect || ( sudo apt-get -qq update -y && sudo apt-get install expect -y && which expect)'
+  #- 'which expect || ( sudo apt-get -qq update -y && sudo apt-get install expect -y && which expect)'
+
+  # Install keychain if not already installed
+  #- 'which keychain || ( sudo apt-get -qq update -y && sudo apt-get install keychain -y && which keychain)'
 
   # Run ssh-agent (inside the build environment)
   - eval $(ssh-agent -s)
@@ -27,12 +30,14 @@ script:
   - python github_stats.py
 
   # add ssh key stored in GITHUB_DEPLOY_SSH_KEY variable to the agent store
-  #- echo "-----BEGIN RSA PRIVATE KEY----- $GITHUB_DEPLOY_SSH_KEY -----END RSA PRIVATE KEY-----" > ./tmp.key
-  #- chmod 600 ./tmp.key
+  - echo "-----BEGIN RSA PRIVATE KEY----- $GITHUB_DEPLOY_SSH_KEY -----END RSA PRIVATE KEY-----" > ./tmp.key
+  - chmod 600 ./tmp.key
   #- cat tmp.key
   #- expect spawn-ssh-add.exp
-  - ssh-add <(echo "-----BEGIN RSA PRIVATE KEY----- $GITHUB_DEPLOY_SSH_KEY -----END RSA PRIVATE KEY-----")
-  - ssh-add -L
+  #- ssh-add <(echo "-----BEGIN RSA PRIVATE KEY----- $GITHUB_DEPLOY_SSH_KEY -----END RSA PRIVATE KEY-----")
+  #- ssh-add -L
+  - keychain ./tmp.key
+  - source $HOME/.keychain/$HOSTNAME-sh
 
   # clone the github_stats_json repo from github.com
   - git clone git@github.com:welcheb/github_stats_json.git
