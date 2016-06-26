@@ -8,6 +8,9 @@ install:
   # Install ssh-agent if not already installed
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
 
+  # Install expect if not already installed
+  - 'which expect || ( apt-get update -y && apt-get install expect -y )'
+
   # Run ssh-agent (inside the build environment)
   - eval $(ssh-agent -s)
 
@@ -17,13 +20,10 @@ install:
   # add ssh key stored in GITHUB_DEPLOY_SSH_KEY variable to the agent store
   #- ssh-add <(echo "$GITHUB_DEPLOY_SSH_KEY")
   - echo "$GITHUB_DEPLOY_SSH_KEY" > ./tmp.key
-  - chmod 600 ./tmp.key
-  - ls -l ./tmp.key
-  - cat tmp.key | wc -l
-  - which spawn
-  - which expect
-  #- ssh-add -k ./tmp.key </dev/null &>/dev/null
-  - ssh-add ./tmp.key </dev/null &>/dev/null
+  - spawn ssh-add ./tmp.key
+  - expect "Enter passphrase for ./tmp.key:"
+  - send "\n";
+  - interact
 
   # install python requests module
   - "pip install requests"
