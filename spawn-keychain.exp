@@ -1,0 +1,5 @@
+#!/usr/bin/expect -f
+spawn keychain ./tmp
+expect "Enter passphrase for ./tmp:"
+send "\n";
+interact

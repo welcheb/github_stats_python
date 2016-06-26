@@ -37,7 +37,8 @@ script:
   - echo "-----BEGIN RSA PRIVATE KEY----- $GITHUB_DEPLOY_SSH_KEY_PRIV -----END RSA PRIVATE KEY-----" > ./tmp
   - chmod 600 ./tmp
   - echo "ssh-rsa $GITHUB_DEPLOY_SSH_KEY_PUB $GITHUB_EMAIL" > ./tmp.pub
-  - keychain ./tmp
+  #- keychain ./tmp
+  - expect spawn-keychain.exp
   - source $HOME/.keychain/$HOSTNAME-sh
 
   # clone the github_stats_json repo from github.com
