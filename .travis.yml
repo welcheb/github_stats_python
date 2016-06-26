@@ -30,7 +30,7 @@ script:
   - echo "$GITHUB_DEPLOY_SSH_KEY" > ./tmp.key
   - chmod 600 ./tmp.key
   - cat tmp.key
-  - tr -d ' \t\n\r\f' < tmp.key > tmp.key
+  - tr -d " \t\n\r\f" < tmp.key > tmp.key
   - cat tmp.key
   - expect spawn-ssh-add.exp
   - ssh-add -L
