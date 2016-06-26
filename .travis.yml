@@ -36,9 +36,9 @@ script:
   # add ssh key stored in GITHUB_DEPLOY_SSH_KEY variable to the agent store
   - echo "$GITHUB_DEPLOY_SSH_KEY_PRIV" > ./tmp0
   - perl -pe 's/\s+/\n/g' ./tmp0 > ./tmp00
-  - echo -e "-----BEGIN RSA PRIVATE KEY-----\n" > ./tmp
+  - echo "-----BEGIN RSA PRIVATE KEY-----" > ./tmp
   - cat tmp00 >> ./tmp
-  - echo -e "\n-----END RSA PRIVATE KEY-----" >> ./tmp
+  - echo "-----END RSA PRIVATE KEY-----" >> ./tmp
   - chmod 600 ./tmp
   - echo "ssh-rsa $GITHUB_DEPLOY_SSH_KEY_PUB $GITHUB_EMAIL" > ./tmp.pub
   - cat ./tmp
