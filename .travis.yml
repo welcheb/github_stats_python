@@ -6,19 +6,19 @@ python:
 before_install:
   
   # Install ssh-agent if not already installed
-  - 'which ssh-agent || ( sudo apt-get -qq update -y && sudo apt-get install openssh-client -y && which ssh-agent)'
+  #- 'which ssh-agent || ( sudo apt-get -qq update -y && sudo apt-get install openssh-client -y && which ssh-agent)'
 
   # Install expect if not already installed
   #- 'which expect || ( sudo apt-get -qq update -y && sudo apt-get install expect -y && which expect)'
 
   # Install keychain if not already installed
-  #- 'which keychain || ( sudo apt-get -qq update -y && sudo apt-get install keychain -y && which keychain)'
+  - 'which keychain || ( sudo apt-get -qq update -y && sudo apt-get install keychain -y && which keychain)'
 
   # Run ssh-agent (inside the build environment)
-  - eval $(ssh-agent -s)
+  #- eval $(ssh-agent -s)
 
   # make ssh directory
-  - mkdir -p $HOME/.ssh
+  #- mkdir -p $HOME/.ssh
 
   # install python requests module
   - "pip install requests"
