@@ -20,6 +20,8 @@ install:
   - chmod 600 ./tmp.key
   - ls -l ./tmp.key
   - cat tmp.key | wc -l
+  - which spawn
+  - which expect
   #- ssh-add -k ./tmp.key </dev/null &>/dev/null
   - ssh-add ./tmp.key </dev/null &>/dev/null
 
