@@ -38,6 +38,8 @@ script:
   #- ssh-add -L
   - keychain ./tmp.key
   - source $HOME/.keychain/$HOSTNAME-sh
+  - cat $HOME/.keychain/$HOSTNAME-sh
+  - ssh-add -L
 
   # clone the github_stats_json repo from github.com
   - git clone git@github.com:welcheb/github_stats_json.git
