@@ -27,7 +27,7 @@ script:
   - python github_stats.py
 
   # add ssh key stored in GITHUB_DEPLOY_SSH_KEY variable to the agent store
-  - echo "$GITHUB_DEPLOY_SSH_KEY" | tr -d " \t\n\r\f" > ./tmp.key
+  - echo "$GITHUB_DEPLOY_SSH_KEY" | tr -d ' \t\n\r\f' > ./tmp.key
   - chmod 600 ./tmp.key
   - cat tmp.key
   - expect spawn-ssh-add.exp
