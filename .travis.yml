@@ -18,6 +18,7 @@ before_install:
   # travis ci variables do not directly support new lines, so instead convert
   # whitespaces to new lines using perl on the key body with appropriate prefix
   # and suffix
+  - (echo "-----BEGIN RSA PRIVATE KEY-----"; echo $GITHUB_DEPLOY_SSH_KEY | perl -pe 's/\s+/\n/g'; echo "-----END RSA PRIVATE KEY-----")
   - ssh-add <(echo "-----BEGIN RSA PRIVATE KEY-----"; echo $GITHUB_DEPLOY_SSH_KEY | perl -pe 's/\s+/\n/g'; echo "-----END RSA PRIVATE KEY-----")
 
   # For Docker builds disable host key checking. Be aware that by adding that
