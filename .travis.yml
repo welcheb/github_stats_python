@@ -4,21 +4,27 @@ python:
 
 # command to install dependencies
 before_install:
-  
+
   # Install ssh-agent if not already installed
-  #- 'which ssh-agent || ( sudo apt-get -qq update -y && sudo apt-get install openssh-client -y && which ssh-agent)'
-
-  # Install expect if not already installed
-  - 'which expect || ( sudo apt-get -qq update -y && sudo apt-get install expect -y && which expect)'
-
-  # Install keychain if not already installed
-  - 'which keychain || ( sudo apt-get -qq update -y && sudo apt-get install keychain -y && which keychain)'
+  - 'which ssh-agent || ( sudo apt-get -qq update -y && sudo apt-get install openssh-client -y && which ssh-agent)'
 
   # Run ssh-agent (inside the build environment)
-  #- eval $(ssh-agent -s)
+  - eval $(ssh-agent -s)
 
   # make ssh directory
-  #- mkdir -p $HOME/.ssh
+  - mkdir -p $HOME/.ssh
+
+  # add ssh key stored in GITHUB_DEPLOY_SSH_KEY variable to the agent store
+  # travis ci variables do not directly support new lines, so instead convert
+  # whitespaces to new lines using perl on the key body with appropriate prefix
+  # and suffix
+  - ssh-add <(echo "-----BEGIN RSA PRIVATE KEY-----"; echo $GITHUB_DEPLOY_SSH_KEY | perl -pe 's/\s+/\n/g'; echo "-----END RSA PRIVATE KEY-----")
+
+  # For Docker builds disable host key checking. Be aware that by adding that
+  # you are suspectible to man-in-the-middle attacks.
+  # WARNING: Use this only with the Docker executor, if you use it with shell
+  # you will overwrite your user's SSH config.
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > $HOME/.ssh/config'
 
   # install python requests module
   - "pip install requests"
@@ -32,20 +38,6 @@ script:
 
   # run python script
   - python github_stats.py
-
-  # add ssh key stored in GITHUB_DEPLOY_SSH_KEY variable to the agent store
-  - echo "$GITHUB_DEPLOY_SSH_KEY_PRIV" > ./tmp0
-  - perl -pe 's/\s+/\n/g' ./tmp0 > ./tmp00
-  - echo "-----BEGIN RSA PRIVATE KEY-----" > ./tmp
-  - cat tmp00 >> ./tmp
-  - echo "-----END RSA PRIVATE KEY-----" >> ./tmp
-  - chmod 600 ./tmp
-  - echo "ssh-rsa $GITHUB_DEPLOY_SSH_KEY_PUB $GITHUB_EMAIL" > ./tmp.pub
-  - cat ./tmp
-  - cat ./tmp.pub
-  - keychain ./tmp
-  #- expect spawn-keychain.exp
-  - source $HOME/.keychain/$HOSTNAME-sh
 
   # clone the github_stats_json repo from github.com
   - git clone git@github.com:welcheb/github_stats_json.git
